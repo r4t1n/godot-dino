@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bhwf5ula1lnah" path="res://graphics/ground.png" id="1_1mmk5"]
 
-[node name="Ground" type="ParallaxBackground"]
+[node name="Level" type="ParallaxBackground"]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(1200, 0)
