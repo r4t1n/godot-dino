@@ -2,21 +2,21 @@ extends CharacterBody2D
 
 const JUMP_VELOCITY: int = -580
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var duck_collider_position_y: int = -25
 var ducking: bool = false
-var jumping: bool = false
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var idle_collider_position_y: float = -33.5
 var is_playing: bool = false
+var jumping: bool = false
 var playing_position_x: int = 24
-
-signal playing
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collider: CollisionShape2D = $CollisionShape2D
 
 var duck_collider: Resource = preload("res://resources/dino/duck-collider.tres")
 var idle_collider: Resource = preload("res://resources/dino/idle-collider.tres")
-var idle_collider_position_y: float = -33.5
-var duck_collider_position_y: int = -25
+
+signal playing
 
 func _physics_process(delta):
 	if not is_on_floor():

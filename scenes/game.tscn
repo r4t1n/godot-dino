@@ -11,7 +11,6 @@ size = Vector2(68, 10)
 script = ExtResource("1_ppvu2")
 
 [node name="CactusTimer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

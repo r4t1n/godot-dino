@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bejcmrhachwt4" path="res://graphics/sprites/dino/duck.png" id="1_fymtl"]
 [ext_resource type="Texture2D" uid="uid://c2kq174wt1my3" path="res://graphics/sprites/dino/idle.png" id="1_l38ky"]
 [ext_resource type="Texture2D" uid="uid://32er7aw0yo4r" path="res://graphics/sprites/dino/die.png" id="1_wkb4t"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_yyav8"]
+[ext_resource type="Script" path="res://scripts/dino.gd" id="1_yyav8"]
 [ext_resource type="Texture2D" uid="uid://ckq3g3eqvdfhh" path="res://graphics/sprites/dino/run.png" id="3_1bcjf"]
 [ext_resource type="Shape2D" uid="uid://ccar57yfj8vpc" path="res://resources/dino/idle-collider.tres" id="6_6litt"]
 
@@ -72,7 +72,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Dino" type="CharacterBody2D"]
 script = ExtResource("1_yyav8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
