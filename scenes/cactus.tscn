@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bx6xs6gaej38o" path="res://graphics/sprites/cactus/01.png" id="2_wdmfa"]
 
 [node name="Cactus" type="StaticBody2D"]
+disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(687.5, -35)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bauwq14tcka0e"]
+[gd_scene load_steps=6 format=3 uid="uid://bauwq14tcka0e"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ppvu2"]
 [ext_resource type="PackedScene" uid="uid://c1ss51bdyiuru" path="res://scenes/dino.tscn" id="1_sr0w3"]
-[ext_resource type="PackedScene" uid="uid://dkkdcl17t7kcv" path="res://scenes/background.tscn" id="2_dbxik"]
+[ext_resource type="PackedScene" uid="uid://dkkdcl17t7kcv" path="res://scenes/ground.tscn" id="2_dbxik"]
+[ext_resource type="Texture2D" uid="uid://ddusiwb3xrcve" path="res://graphics/text/game-over.png" id="4_jyuxx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qm2x"]
 size = Vector2(68, 10)
@@ -10,29 +11,46 @@ size = Vector2(68, 10)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ppvu2")
 
-[node name="Background" parent="." instance=ExtResource("2_dbxik")]
-
 [node name="Cacti" type="Node2D" parent="."]
-
-[node name="CactusTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(325, -75)
 
 [node name="Clouds" type="Node2D" parent="."]
 
-[node name="CloudTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Dino" parent="." instance=ExtResource("1_sr0w3")]
 
-[node name="GroundCollider" type="StaticBody2D" parent="."]
+[node name="Ground" parent="." instance=ExtResource("2_dbxik")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
+[node name="GroundCollider" type="StaticBody2D" parent="Ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/GroundCollider"]
 position = Vector2(34, -5)
 shape = SubResource("RectangleShape2D_3qm2x")
 
-[connection signal="timeout" from="CactusTimer" to="." method="_on_cactus_timer_timeout"]
-[connection signal="timeout" from="CloudTimer" to="." method="_on_cloud_timer_timeout"]
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="CactusTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="CloudTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="GameOverTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+one_shot = true
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="GameOver" type="Node2D" parent="UI"]
+visible = false
+
+[node name="GameOver" type="Sprite2D" parent="UI/GameOver"]
+position = Vector2(325, -104)
+texture = ExtResource("4_jyuxx")
+
+[connection signal="dead" from="Dino" to="." method="_on_dino_dead"]
 [connection signal="playing" from="Dino" to="." method="_on_dino_playing"]
+[connection signal="timeout" from="Timers/CactusTimer" to="." method="_on_cactus_timer_timeout"]
+[connection signal="timeout" from="Timers/CloudTimer" to="." method="_on_cloud_timer_timeout"]
+[connection signal="timeout" from="Timers/GameOverTimer" to="." method="_on_game_over_timer_timeout"]

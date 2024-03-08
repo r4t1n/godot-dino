@@ -6,6 +6,7 @@ var duck_collider_position_y: int = -25
 var ducking: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var idle_collider_position_y: float = -33.5
+var is_dead: bool = false
 var is_playing: bool = false
 var jumping: bool = false
 var playing_position_x: int = 24
@@ -16,6 +17,7 @@ var playing_position_x: int = 24
 var duck_collider_resource: Resource = preload("res://resources/dino/duck-collider.tres")
 var idle_collider_resource: Resource = preload("res://resources/dino/idle-collider.tres")
 
+signal dead
 signal playing
 
 func _physics_process(delta):
@@ -28,8 +30,12 @@ func _physics_process(delta):
 		jumping = false
 
 	if Input.is_action_pressed("jump") and is_on_floor() and not ducking:
-		jumping = true
-		velocity.y = JUMP_VELOCITY
+		if is_dead:
+			is_playing = true
+			playing.emit()
+		else:
+			jumping = true
+			velocity.y = JUMP_VELOCITY
 
 		if not is_playing:
 			await get_tree().create_timer(0.7).timeout
@@ -51,6 +57,15 @@ func _physics_process(delta):
 
 	animate()
 	move_and_slide()
+
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var body = collision.get_collider()
+		if body.name == "Cactus":
+			is_dead = true
+			is_playing = false
+			dead.emit()
+			animated_sprite.play("Die")
 
 func animate():
 	if ducking:
