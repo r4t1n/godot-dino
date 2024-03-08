@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx6xs6gaej38o"
-path="res://.godot/imported/big-1.png-3bc44d4e1d8f47e936b6eb5af486af70.ctex"
+uid="uid://brfm44rbsdtry"
+path="res://.godot/imported/11.png-bab7c9cb85d68c6fa91ba1bb8c87b05e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/sprites/cactus/big-1.png"
-dest_files=["res://.godot/imported/big-1.png-3bc44d4e1d8f47e936b6eb5af486af70.ctex"]
+source_file="res://graphics/sprites/cactus/11.png"
+dest_files=["res://.godot/imported/11.png-bab7c9cb85d68c6fa91ba1bb8c87b05e.ctex"]
 
 [params]
 

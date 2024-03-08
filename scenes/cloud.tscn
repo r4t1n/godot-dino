@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cql0mmnq3kci5"]
+
+[ext_resource type="Texture2D" uid="uid://b4x2da7a87lwt" path="res://graphics/cloud.png" id="1_40203"]
+
+[node name="Cloud" type="Sprite2D"]
+position = Vector2(673, 0)
+texture = ExtResource("1_40203")

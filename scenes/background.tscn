@@ -2,11 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://bhwf5ula1lnah" path="res://graphics/ground.png" id="1_1mmk5"]
 
-[node name="Level" type="ParallaxBackground"]
+[node name="Background" type="ParallaxBackground"]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+[node name="Ground" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(1200, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
 position = Vector2(600, -18)
 texture = ExtResource("1_1mmk5")
+
+[node name="Clouds" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1200, 0)

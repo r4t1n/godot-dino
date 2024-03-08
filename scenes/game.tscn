@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ppvu2"]
 [ext_resource type="PackedScene" uid="uid://c1ss51bdyiuru" path="res://scenes/dino.tscn" id="1_sr0w3"]
-[ext_resource type="PackedScene" uid="uid://dkkdcl17t7kcv" path="res://scenes/level.tscn" id="2_dbxik"]
+[ext_resource type="PackedScene" uid="uid://dkkdcl17t7kcv" path="res://scenes/background.tscn" id="2_dbxik"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qm2x"]
 size = Vector2(68, 10)
@@ -10,21 +10,29 @@ size = Vector2(68, 10)
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ppvu2")
 
+[node name="Background" parent="." instance=ExtResource("2_dbxik")]
+
+[node name="Cacti" type="Node2D" parent="."]
+
 [node name="CactusTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(325, -75)
 
+[node name="Clouds" type="Node2D" parent="."]
+
+[node name="CloudTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Dino" parent="." instance=ExtResource("1_sr0w3")]
 
-[node name="Ground" type="StaticBody2D" parent="."]
+[node name="GroundCollider" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
 position = Vector2(34, -5)
 shape = SubResource("RectangleShape2D_3qm2x")
 
-[node name="Level" parent="." instance=ExtResource("2_dbxik")]
-
 [connection signal="timeout" from="CactusTimer" to="." method="_on_cactus_timer_timeout"]
+[connection signal="timeout" from="CloudTimer" to="." method="_on_cloud_timer_timeout"]
 [connection signal="playing" from="Dino" to="." method="_on_dino_playing"]
