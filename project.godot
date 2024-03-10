@@ -47,7 +47,7 @@ jump={
 
 [physics]
 
-2d/default_gravity=2156.0
+2d/default_gravity=1470.0
 
 [rendering]
 

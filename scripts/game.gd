@@ -2,7 +2,7 @@ extends Node2D
 
 const ACCELERATION: float = 0.04
 const CACTUS_OUT_OF_BOUNDS_POSITION_X: int = -725
-const CACTUS_SMALL_POSITION_Y: float = -27.5
+const CACTUS_SMALL_POSITION_Y: int = -26
 const CACTUS_TIMER_MAX_WAIT_TIME: int = 16
 const CACTUS_TIMER_MIN_WAIT_TIME: int = 4
 const CLOUD_TIMER_MAX_WAIT_TIME: int = 24

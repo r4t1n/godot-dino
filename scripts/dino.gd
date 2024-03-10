@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const JUMP_VELOCITY: int = -580
+const JUMP_VELOCITY: int = -500
 
 var duck_collider_position_y: int = -25
 var ducking: bool = false
@@ -9,7 +9,7 @@ var idle_collider_position_y: float = -33.5
 var is_dead: bool = false
 var is_playing: bool = false
 var jumping: bool = false
-var playing_position_x: int = 24
+var playing_position_x: int = 26
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collider: CollisionShape2D = $CollisionShape2D
@@ -20,7 +20,14 @@ var idle_collider_resource: Resource = preload("res://resources/dino/idle-collid
 signal dead
 signal playing
 
+var silly_timer: bool = false
+var timer: float = 0
+
 func _physics_process(delta):
+	if is_playing or is_dead: # Hack fix for colliders applying physics
+		position.x = playing_position_x
+		timer += delta
+
 	if not is_on_floor():
 		if ducking:
 			velocity.y += 2.5 * gravity * delta
@@ -38,11 +45,12 @@ func _physics_process(delta):
 			velocity.y = JUMP_VELOCITY
 
 		if not is_playing:
-			await get_tree().create_timer(0.7).timeout
+			silly_timer = true
+			await get_tree().create_timer(0.6).timeout
 			var tween: Tween = create_tween()
 			tween.tween_property(self, "position:x", playing_position_x, 0.3)
 			animated_sprite.play("Run")
-			await get_tree().create_timer(0.3).timeout
+			await get_tree().create_timer(0.25).timeout
 			is_playing = true
 			playing.emit()
 
@@ -66,6 +74,9 @@ func _physics_process(delta):
 			is_playing = false
 			dead.emit()
 			animated_sprite.play("Die")
+		if body.name == "GroundCollider" and silly_timer:
+			silly_timer = false
+			print(timer)
 
 func animate():
 	if ducking:

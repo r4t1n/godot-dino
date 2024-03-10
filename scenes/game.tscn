@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ddusiwb3xrcve" path="res://graphics/text/game-over.png" id="4_jyuxx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qm2x"]
-size = Vector2(68, 10)
+size = Vector2(70, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ppvu2")
@@ -22,10 +22,10 @@ position = Vector2(325, -75)
 
 [node name="Ground" parent="." instance=ExtResource("2_dbxik")]
 
-[node name="GroundCollider" type="StaticBody2D" parent="Ground"]
+[node name="GroundCollider" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/GroundCollider"]
-position = Vector2(34, -5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollider"]
+position = Vector2(35, -11.5)
 shape = SubResource("RectangleShape2D_3qm2x")
 
 [node name="Timers" type="Node2D" parent="."]
