@@ -55,6 +55,26 @@ texture = ExtResource("5_o3wo7")
 
 [node name="HighScore" type="Node2D" parent="UI"]
 
+[node name="Ones" type="Sprite2D" parent="UI/HighScore"]
+position = Vector2(565.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="Tens" type="Sprite2D" parent="UI/HighScore"]
+position = Vector2(554.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="Hundreds" type="Sprite2D" parent="UI/HighScore"]
+position = Vector2(543.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="Thousands" type="Sprite2D" parent="UI/HighScore"]
+position = Vector2(532.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="TenThousands" type="Sprite2D" parent="UI/HighScore"]
+position = Vector2(521.5, -134.5)
+texture = ExtResource("6_hmuem")
+
 [node name="Score" type="Node2D" parent="UI"]
 
 [node name="Ones" type="Sprite2D" parent="UI/Score"]

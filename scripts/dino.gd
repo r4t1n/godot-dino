@@ -24,6 +24,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		if ducking:
 			velocity.y += 2.5 * GRAVITY * delta
+		elif is_dead:
+			velocity.y = 0
 		else:
 			velocity.y += GRAVITY * delta
 	else:

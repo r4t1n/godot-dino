@@ -47,6 +47,7 @@ func _process(delta):
 		ground.scroll_base_offset.x -= speed
 		playing_timer += delta
 		set_score()
+		point_events()
 
 		if not cactus_timer_started:
 			cactus_timer.wait_time = cactus_timer_wait_time()
@@ -104,6 +105,10 @@ func set_score():
 	score_hundreds.texture = load("res://graphics/text/numbers/" + str(hundreds) + ".png")
 	score_thousands.texture = load("res://graphics/text/numbers/" + str(thousands) + ".png")
 	score_ten_thousands.texture = load("res://graphics/text/numbers/" + str(ten_thousands) + ".png")
+
+func point_events():
+	if points == 700:
+		RenderingServer.set_default_clear_color(Color.BLACK)
 
 func _on_cactus_timer_timeout():
 	spawn_cactus()
