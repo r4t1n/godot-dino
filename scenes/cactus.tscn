@@ -3,13 +3,13 @@
 [ext_resource type="Shape2D" uid="uid://bfcjmsc20i5hv" path="res://resources/cactus/collisionshape2d/01.tres" id="1_ojxf4"]
 [ext_resource type="Texture2D" uid="uid://bx6xs6gaej38o" path="res://graphics/sprites/cactus/01.png" id="2_wdmfa"]
 
-[node name="Cactus" type="StaticBody2D"]
+[node name="Cactus" type="StaticBody2D" groups=["Obstacle"]]
 disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(687.5, -35)
+position = Vector2(687.5, -31)
 shape = ExtResource("1_ojxf4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(687.5, -35)
+position = Vector2(687.5, -33)
 texture = ExtResource("2_wdmfa")

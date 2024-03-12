@@ -2,7 +2,8 @@ extends Node2D
 
 const ACCELERATION: float = 0.04
 const CACTUS_OUT_OF_BOUNDS_POSITION_X: int = -725
-const CACTUS_SMALL_POSITION_Y: int = -26
+const CACTUS_SMALL_COLLIDER_POSITION_Y: float = -23.5
+const CACTUS_SMALL_SPRITE_POSITION_Y: float = -27.5
 const CACTUS_TIMER_MAX_WAIT_TIME: int = 16
 const CACTUS_TIMER_MIN_WAIT_TIME: int = 4
 const CLOUD_TIMER_MAX_WAIT_TIME: int = 24
@@ -18,6 +19,11 @@ var is_playing: bool = false
 var playing_timer: float = 0
 var points: int = 0
 var speed: float = 6
+var ones: int = 0
+var tens: int = 0
+var hundreds: int = 0
+var thousands: int = 0
+var ten_thousands: int = 0
 
 @onready var ground: ParallaxBackground = $Ground
 @onready var cacti: Node2D = $Cacti
@@ -26,6 +32,11 @@ var speed: float = 6
 @onready var cloud_timer: Timer = $Timers/CloudTimer
 @onready var game_over: Node2D = $UI/GameOver
 @onready var game_over_timer: Timer = $Timers/GameOverTimer
+@onready var score_ones: Sprite2D = $UI/Score/Ones
+@onready var score_tens: Sprite2D = $UI/Score/Tens
+@onready var score_hundreds: Sprite2D = $UI/Score/Hundreds
+@onready var score_thousands: Sprite2D = $UI/Score/Thousands
+@onready var score_ten_thousands: Sprite2D = $UI/Score/TenThousands
 
 var cactus_scene: PackedScene = preload("res://scenes/cactus.tscn")
 var cloud_scene: PackedScene = preload("res://scenes/cloud.tscn")
@@ -35,7 +46,7 @@ func _process(delta):
 		speed += ACCELERATION * delta
 		ground.scroll_base_offset.x -= speed
 		playing_timer += delta
-		points = int(playing_timer / POINT_INTERVAL)
+		set_score()
 
 		if not cactus_timer_started:
 			cactus_timer.wait_time = cactus_timer_wait_time()
@@ -55,8 +66,6 @@ func _process(delta):
 			cloud.position.x -= speed * CLOUD_SPEED
 			if cloud.position.x < CLOUD_OUT_OF_BOUNDS_POSITION_X:
 				cloud.queue_free()
-	elif is_dead:
-		pass
 
 func cactus_timer_wait_time() -> float:
 	return randf_range(CACTUS_TIMER_MIN_WAIT_TIME, CACTUS_TIMER_MAX_WAIT_TIME) / speed
@@ -73,8 +82,8 @@ func spawn_cactus():
 	cactus_collider.shape = load("res://resources/cactus/collisionshape2d/" + str(cactus_size) + str(cactus_number) + ".tres")
 	cactus_sprite.texture = load("res://graphics/sprites/cactus/" + str(cactus_size) + str(cactus_number) + ".png")
 	if cactus_size == 1:
-		cactus_collider.position.y = CACTUS_SMALL_POSITION_Y
-		cactus_sprite.position.y = CACTUS_SMALL_POSITION_Y
+		cactus_collider.position.y = CACTUS_SMALL_COLLIDER_POSITION_Y
+		cactus_sprite.position.y = CACTUS_SMALL_SPRITE_POSITION_Y
 	cacti.add_child(cactus_instance)
 
 func spawn_cloud():
@@ -82,6 +91,19 @@ func spawn_cloud():
 	var cloud_position_y = randi_range(-75, -150)
 	cloud_instance.position.y = cloud_position_y
 	clouds.add_child(cloud_instance)
+
+func set_score():
+	points = int(playing_timer / POINT_INTERVAL)
+	ones = points % 10
+	tens = (points % 100) / 10
+	hundreds = (points % 1000) / 100
+	thousands = (points % 10000) / 1000
+	ten_thousands = (points % 100000) / 10000
+	score_ones.texture = load("res://graphics/text/numbers/" + str(ones) + ".png")
+	score_tens.texture = load("res://graphics/text/numbers/" + str(tens) + ".png")
+	score_hundreds.texture = load("res://graphics/text/numbers/" + str(hundreds) + ".png")
+	score_thousands.texture = load("res://graphics/text/numbers/" + str(thousands) + ".png")
+	score_ten_thousands.texture = load("res://graphics/text/numbers/" + str(ten_thousands) + ".png")
 
 func _on_cactus_timer_timeout():
 	spawn_cactus()

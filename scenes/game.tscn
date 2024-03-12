@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bauwq14tcka0e"]
+[gd_scene load_steps=8 format=3 uid="uid://bauwq14tcka0e"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ppvu2"]
 [ext_resource type="PackedScene" uid="uid://c1ss51bdyiuru" path="res://scenes/dino.tscn" id="1_sr0w3"]
 [ext_resource type="PackedScene" uid="uid://dkkdcl17t7kcv" path="res://scenes/ground.tscn" id="2_dbxik"]
 [ext_resource type="Texture2D" uid="uid://ddusiwb3xrcve" path="res://graphics/text/game-over.png" id="4_jyuxx"]
+[ext_resource type="Texture2D" uid="uid://3taud2h6hnhf" path="res://graphics/text/hi.png" id="5_o3wo7"]
+[ext_resource type="Texture2D" uid="uid://c0yfsj7wky2nm" path="res://graphics/text/numbers/0.png" id="6_hmuem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qm2x"]
-size = Vector2(70, 1)
+size = Vector2(50, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ppvu2")
@@ -42,12 +44,38 @@ one_shot = true
 
 [node name="UI" type="Node2D" parent="."]
 
-[node name="GameOver" type="Node2D" parent="UI"]
+[node name="GameOver" type="Sprite2D" parent="UI"]
 visible = false
-
-[node name="GameOver" type="Sprite2D" parent="UI/GameOver"]
 position = Vector2(325, -104)
 texture = ExtResource("4_jyuxx")
+
+[node name="Hi" type="Sprite2D" parent="UI"]
+position = Vector2(494.5, -134.5)
+texture = ExtResource("5_o3wo7")
+
+[node name="HighScore" type="Node2D" parent="UI"]
+
+[node name="Score" type="Node2D" parent="UI"]
+
+[node name="Ones" type="Sprite2D" parent="UI/Score"]
+position = Vector2(632.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="Tens" type="Sprite2D" parent="UI/Score"]
+position = Vector2(621.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="Hundreds" type="Sprite2D" parent="UI/Score"]
+position = Vector2(610.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="Thousands" type="Sprite2D" parent="UI/Score"]
+position = Vector2(599.5, -134.5)
+texture = ExtResource("6_hmuem")
+
+[node name="TenThousands" type="Sprite2D" parent="UI/Score"]
+position = Vector2(588.5, -134.5)
+texture = ExtResource("6_hmuem")
 
 [connection signal="dead" from="Dino" to="." method="_on_dino_dead"]
 [connection signal="playing" from="Dino" to="." method="_on_dino_playing"]
