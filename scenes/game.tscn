@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bauwq14tcka0e"]
+[gd_scene load_steps=9 format=3 uid="uid://bauwq14tcka0e"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ppvu2"]
 [ext_resource type="PackedScene" uid="uid://c1ss51bdyiuru" path="res://scenes/dino.tscn" id="1_sr0w3"]
@@ -8,10 +8,21 @@
 [ext_resource type="Texture2D" uid="uid://c0yfsj7wky2nm" path="res://graphics/text/numbers/0.png" id="6_hmuem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qm2x"]
-size = Vector2(50, 1)
+size = Vector2(70, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rd6xf"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"Restart",
+"speed": 8.0
+}]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ppvu2")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 10.0
 
 [node name="Cacti" type="Node2D" parent="."]
 
@@ -38,22 +49,31 @@ one_shot = true
 [node name="CloudTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="GameOverTimer" type="Timer" parent="Timers"]
+[node name="RestartTimer" type="Timer" parent="Timers"]
 wait_time = 2.0
 one_shot = true
 
 [node name="UI" type="Node2D" parent="."]
 
-[node name="GameOver" type="Sprite2D" parent="UI"]
-visible = false
-position = Vector2(325, -104)
+[node name="GameOver" type="Node2D" parent="UI"]
+
+[node name="GameOver" type="Sprite2D" parent="UI/GameOver"]
+position = Vector2(325, -106)
 texture = ExtResource("4_jyuxx")
 
+[node name="Restart" type="AnimatedSprite2D" parent="UI/GameOver"]
+position = Vector2(329, -71)
+sprite_frames = SubResource("SpriteFrames_rd6xf")
+animation = &"Restart"
+frame_progress = 1.0
+
 [node name="Hi" type="Sprite2D" parent="UI"]
+modulate = Color(1, 1, 1, 0.784314)
 position = Vector2(494.5, -134.5)
 texture = ExtResource("5_o3wo7")
 
 [node name="HighScore" type="Node2D" parent="UI"]
+modulate = Color(1, 1, 1, 0.784314)
 
 [node name="Ones" type="Sprite2D" parent="UI/HighScore"]
 position = Vector2(565.5, -134.5)
@@ -97,8 +117,9 @@ texture = ExtResource("6_hmuem")
 position = Vector2(588.5, -134.5)
 texture = ExtResource("6_hmuem")
 
-[connection signal="dead" from="Dino" to="." method="_on_dino_dead"]
-[connection signal="playing" from="Dino" to="." method="_on_dino_playing"]
+[connection signal="dead" from="." to="Dino" method="_on_game_dead"]
+[connection signal="playing" from="." to="Dino" method="_on_game_playing"]
+[connection signal="jumping" from="Dino" to="." method="_on_dino_jumping"]
 [connection signal="timeout" from="Timers/CactusTimer" to="." method="_on_cactus_timer_timeout"]
 [connection signal="timeout" from="Timers/CloudTimer" to="." method="_on_cloud_timer_timeout"]
-[connection signal="timeout" from="Timers/GameOverTimer" to="." method="_on_game_over_timer_timeout"]
+[connection signal="timeout" from="Timers/RestartTimer" to="." method="_on_restart_timer_timeout"]
