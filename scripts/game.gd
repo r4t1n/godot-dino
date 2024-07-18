@@ -37,6 +37,7 @@ var has_started: bool = false
 @onready var clouds: Node2D = $Clouds
 @onready var cloud_timer: Timer = $Timers/CloudTimer
 @onready var game_over: Node2D = $UI/GameOver
+@onready var game_over_restart: AnimatedSprite2D = $UI/GameOver/Restart
 @onready var restart_timer: Timer = $Timers/RestartTimer
 @onready var score_ones: Sprite2D = $UI/Score/Ones
 @onready var score_tens: Sprite2D = $UI/Score/Tens
@@ -142,6 +143,7 @@ func _on_cactus_body_entered(body):
 		is_playing = false
 		dead.emit()
 		game_over.visible = true
+		game_over_restart.play("Restart")
 		restart_timer.start()
 		audio_stream_player.stream = hit_audio
 		audio_stream_player.play()
